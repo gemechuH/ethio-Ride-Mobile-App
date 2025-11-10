@@ -45,7 +45,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     _totalDrivers = drivers.length;
     _totalRides = allRides.length;
     _activeRides = activeRidesList.length;
-    _totalRevenue = allRides.where((r) => r.status == 'completed').fold(0.0, (sum, r) => sum + r.fare);
+    _totalRevenue = allRides
+        .where((r) => r.status == 'completed')
+        .fold(0.0, (sum, r) => sum + r.fare);
 
     if (mounted) setState(() => _isLoading = false);
   }
@@ -67,19 +69,25 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Dashboard', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+        title: Text('Admin Dashboard',
+            style: theme.textTheme.titleLarge
+                ?.copyWith(fontWeight: FontWeight.bold)),
         actions: [
           IconButton(icon: const Icon(Icons.logout), onPressed: _logout),
         ],
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator(color: theme.colorScheme.primary))
+          ? Center(
+              child:
+                  CircularProgressIndicator(color: theme.colorScheme.primary))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Overview', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+                  Text('Overview',
+                      style: theme.textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 24),
                   GridView.count(
                     shrinkWrap: true,
@@ -88,10 +96,18 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
                     children: [
-                      _buildStatCard(theme, 'Total Passengers', '$_totalPassengers', Icons.people, theme.colorScheme.primary),
-                      _buildStatCard(theme, 'Total Drivers', '$_totalDrivers', Icons.local_taxi, theme.colorScheme.secondary),
-                      _buildStatCard(theme, 'Total Rides', '$_totalRides', Icons.directions_car, theme.colorScheme.tertiary),
-                      _buildStatCard(theme, 'Active Rides', '$_activeRides', Icons.navigation, Colors.orange),
+                      _buildStatCard(
+                          theme,
+                          'Total Passengers',
+                          '$_totalPassengers',
+                          Icons.people,
+                          theme.colorScheme.primary),
+                      _buildStatCard(theme, 'Total Drivers', '$_totalDrivers',
+                          Icons.local_taxi, theme.colorScheme.secondary),
+                      _buildStatCard(theme, 'Total Rides', '$_totalRides',
+                          Icons.directions_car, theme.colorScheme.tertiary),
+                      _buildStatCard(theme, 'Active Rides', '$_activeRides',
+                          Icons.navigation, Colors.orange),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -99,7 +115,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [theme.colorScheme.primary, theme.colorScheme.primary.withValues(alpha: 0.7)],
+                        colors: [
+                          theme.colorScheme.primary,
+                          theme.colorScheme.primary.withValues(alpha: 0.7)
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -111,24 +130,38 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Total Revenue', style: theme.textTheme.bodyLarge?.copyWith(color: Colors.white.withValues(alpha: 0.9))),
+                            Text('Total Revenue',
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                    color:
+                                        Colors.white.withValues(alpha: 0.9))),
                             const SizedBox(height: 8),
-                            Text('${_totalRevenue.toStringAsFixed(2)} ETB', style: theme.textTheme.displaySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                            Text('${_totalRevenue.toStringAsFixed(2)} ETB',
+                                style: theme.textTheme.displaySmall?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
                           ],
                         ),
-                        Icon(Icons.account_balance_wallet, size: 64, color: Colors.white.withValues(alpha: 0.3)),
+                        Icon(Icons.account_balance_wallet,
+                            size: 59,
+                            color: Colors.white.withValues(alpha: 0.3)),
                       ],
                     ),
                   ),
                   const SizedBox(height: 32),
-                  Text('Management', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                  Text('Management',
+                      style: theme.textTheme.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 16),
-                  _buildManagementCard(theme, 'Manage Users', 'View and manage passengers & drivers', Icons.people, () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ManageUsersScreen()));
+                  _buildManagementCard(theme, 'Manage Users',
+                      'View and manage passengers & drivers', Icons.people, () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => const ManageUsersScreen()));
                   }),
                   const SizedBox(height: 12),
-                  _buildManagementCard(theme, 'Manage Rides', 'View all rides and live tracking', Icons.map, () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ManageRidesScreen()));
+                  _buildManagementCard(theme, 'Manage Rides',
+                      'View all rides and live tracking', Icons.map, () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => const ManageRidesScreen()));
                   }),
                 ],
               ),
@@ -136,7 +169,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     );
   }
 
-  Widget _buildStatCard(ThemeData theme, String label, String value, IconData icon, Color color) {
+  Widget _buildStatCard(
+      ThemeData theme, String label, String value, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -149,15 +183,21 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
         children: [
           Icon(icon, size: 40, color: color),
           const SizedBox(height: 12),
-          Text(value, style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, color: color)),
+          Text(value,
+              style: theme.textTheme.headlineMedium
+                  ?.copyWith(fontWeight: FontWeight.bold, color: color)),
           const SizedBox(height: 4),
-          Text(label, style: theme.textTheme.bodySmall?.copyWith(color: color), textAlign: TextAlign.center, overflow: TextOverflow.ellipsis),
+          Text(label,
+              style: theme.textTheme.bodySmall?.copyWith(color: color),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis),
         ],
       ),
     );
   }
 
-  Widget _buildManagementCard(ThemeData theme, String title, String subtitle, IconData icon, VoidCallback onTap) {
+  Widget _buildManagementCard(ThemeData theme, String title, String subtitle,
+      IconData icon, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
@@ -177,16 +217,22 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 color: theme.colorScheme.primaryContainer,
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: theme.colorScheme.onPrimaryContainer, size: 28),
+              child: Icon(icon,
+                  color: theme.colorScheme.onPrimaryContainer, size: 28),
             ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                  Text(title,
+                      style: theme.textTheme.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 4),
-                  Text(subtitle, style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey), overflow: TextOverflow.ellipsis),
+                  Text(subtitle,
+                      style: theme.textTheme.bodySmall
+                          ?.copyWith(color: Colors.grey),
+                      overflow: TextOverflow.ellipsis),
                 ],
               ),
             ),
