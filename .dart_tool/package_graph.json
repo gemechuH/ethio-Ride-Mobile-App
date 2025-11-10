@@ -92,19 +92,21 @@
     },
     {
       "name": "flutter_map",
-      "version": "8.1.1",
+      "version": "8.2.2",
       "dependencies": [
         "async",
         "collection",
         "dart_earcut",
+        "dart_polylabel2",
         "flutter",
         "http",
         "latlong2",
         "logger",
         "meta",
-        "polylabel",
+        "path",
+        "path_provider",
         "proj4dart",
-        "vector_math"
+        "uuid"
       ]
     },
     {
@@ -122,7 +124,7 @@
     },
     {
       "name": "google_fonts",
-      "version": "6.2.1",
+      "version": "6.3.2",
       "dependencies": [
         "crypto",
         "flutter",
@@ -311,7 +313,7 @@
     },
     {
       "name": "url_launcher_macos",
-      "version": "3.2.3",
+      "version": "3.2.4",
       "dependencies": [
         "flutter",
         "url_launcher_platform_interface"
@@ -327,7 +329,7 @@
     },
     {
       "name": "url_launcher_ios",
-      "version": "6.3.4",
+      "version": "6.3.5",
       "dependencies": [
         "flutter",
         "url_launcher_platform_interface"
@@ -335,10 +337,19 @@
     },
     {
       "name": "url_launcher_android",
-      "version": "6.3.20",
+      "version": "6.3.24",
       "dependencies": [
         "flutter",
         "url_launcher_platform_interface"
+      ]
+    },
+    {
+      "name": "uuid",
+      "version": "4.5.2",
+      "dependencies": [
+        "crypto",
+        "fixnum",
+        "meta"
       ]
     },
     {
@@ -351,10 +362,15 @@
       ]
     },
     {
-      "name": "polylabel",
-      "version": "1.0.1",
+      "name": "path_provider",
+      "version": "2.1.5",
       "dependencies": [
-        "collection"
+        "flutter",
+        "path_provider_android",
+        "path_provider_foundation",
+        "path_provider_linux",
+        "path_provider_platform_interface",
+        "path_provider_windows"
       ]
     },
     {
@@ -366,12 +382,20 @@
     },
     {
       "name": "http",
-      "version": "1.4.0",
+      "version": "1.6.0",
       "dependencies": [
         "async",
         "http_parser",
         "meta",
         "web"
+      ]
+    },
+    {
+      "name": "dart_polylabel2",
+      "version": "1.0.0",
+      "dependencies": [
+        "collection",
+        "meta"
       ]
     },
     {
@@ -431,7 +455,7 @@
     },
     {
       "name": "shared_preferences_foundation",
-      "version": "2.5.4",
+      "version": "2.5.5",
       "dependencies": [
         "flutter",
         "shared_preferences_platform_interface"
@@ -439,7 +463,7 @@
     },
     {
       "name": "shared_preferences_android",
-      "version": "2.4.13",
+      "version": "2.4.15",
       "dependencies": [
         "flutter",
         "shared_preferences_platform_interface"
@@ -447,21 +471,9 @@
     },
     {
       "name": "crypto",
-      "version": "3.0.6",
+      "version": "3.0.7",
       "dependencies": [
         "typed_data"
-      ]
-    },
-    {
-      "name": "path_provider",
-      "version": "2.1.5",
-      "dependencies": [
-        "flutter",
-        "path_provider_android",
-        "path_provider_foundation",
-        "path_provider_linux",
-        "path_provider_platform_interface",
-        "path_provider_windows"
       ]
     },
     {
@@ -568,6 +580,11 @@
       ]
     },
     {
+      "name": "fixnum",
+      "version": "1.1.1",
+      "dependencies": []
+    },
+    {
       "name": "wkt_parser",
       "version": "2.0.0",
       "dependencies": []
@@ -577,16 +594,6 @@
       "version": "2.0.0",
       "dependencies": [
         "unicode"
-      ]
-    },
-    {
-      "name": "http_parser",
-      "version": "4.1.2",
-      "dependencies": [
-        "collection",
-        "source_span",
-        "string_scanner",
-        "typed_data"
       ]
     },
     {
@@ -609,14 +616,6 @@
       ]
     },
     {
-      "name": "file",
-      "version": "7.0.1",
-      "dependencies": [
-        "meta",
-        "path"
-      ]
-    },
-    {
       "name": "path_provider_linux",
       "version": "2.2.1",
       "dependencies": [
@@ -628,15 +627,8 @@
       ]
     },
     {
-      "name": "typed_data",
-      "version": "1.4.0",
-      "dependencies": [
-        "collection"
-      ]
-    },
-    {
       "name": "path_provider_foundation",
-      "version": "2.4.1",
+      "version": "2.4.3",
       "dependencies": [
         "flutter",
         "path_provider_platform_interface"
@@ -644,10 +636,35 @@
     },
     {
       "name": "path_provider_android",
-      "version": "2.2.17",
+      "version": "2.2.20",
       "dependencies": [
         "flutter",
         "path_provider_platform_interface"
+      ]
+    },
+    {
+      "name": "http_parser",
+      "version": "4.1.2",
+      "dependencies": [
+        "collection",
+        "source_span",
+        "string_scanner",
+        "typed_data"
+      ]
+    },
+    {
+      "name": "file",
+      "version": "7.0.1",
+      "dependencies": [
+        "meta",
+        "path"
+      ]
+    },
+    {
+      "name": "typed_data",
+      "version": "1.4.0",
+      "dependencies": [
+        "collection"
       ]
     },
     {
@@ -669,7 +686,7 @@
     },
     {
       "name": "vm_service",
-      "version": "15.0.0",
+      "version": "15.0.2",
       "dependencies": []
     },
     {

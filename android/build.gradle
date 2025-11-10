@@ -4,69 +4,63 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.6.1'  // upgrade AGP here too
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0' // upgrade Kotlin
+        // Android Gradle Plugin
+        classpath 'com.android.tools.build:gradle:8.6.1'
+        // Kotlin Gradle Plugin
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0'
     }
 }
-
 
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
-
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-        kotlinOptions {
-            jvmTarget = "17"
-        }
-    }
 }
 
-
 rootProject.buildDir = "../build"
-subprojects {
-    afterEvaluate { project ->
-        if (project.hasProperty("kotlin")) {
-            project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-                kotlinOptions {
-                    jvmTarget = "1.8"
-                }
-            }
-        }
-    }
-} 
- 
+
+// ✅ Force every module (Java + Kotlin) to use JVM 17
 subprojects {
     afterEvaluate { project ->
         if (project.plugins.hasPlugin("com.android.application") ||
-                project.plugins.hasPlugin("com.android.library")) {
+            project.plugins.hasPlugin("com.android.library")) {
             project.android {
                 compileSdkVersion 34
-            }
-        }
-        if (project.hasProperty('android')) {
-            project.android {
-                if (namespace == null) {
-                    namespace project.group
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_17
+                    targetCompatibility JavaVersion.VERSION_17
                 }
             }
         }
-    }
-}
 
-subprojects {
+        // Force Kotlin target 17
+        project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            kotlinOptions.jvmTarget = "17"
+        }
+    }
+
+    // Force Java target 17 for all projects
+    tasks.withType(JavaCompile).configureEach {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    // Assign unique build folder for each subproject
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 
+// Ensure app module is evaluated last
 subprojects {
     project.evaluationDependsOn(":app")
 }
 
+// Clean task
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
 
+// Optional: Load keystore if exists
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
