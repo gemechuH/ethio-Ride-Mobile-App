@@ -5,7 +5,6 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
-
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
@@ -13,10 +12,22 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    namespace "com.example.journeysync"
+    compileSdkVersion 34
+
+    defaultConfig {
+        applicationId "com.example.journeysync"
+        minSdkVersion flutter.minSdkVersion               // ✅ Must be at least 21
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = "17"
     }
